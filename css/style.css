@@ -1,0 +1,290 @@
+:root{
+	--bg: #FFF;
+	--bg-1: #EEE;
+	--fg: #000;
+	--fg-1: #555;
+	--separator: 2px solid var(--fg);
+}
+
+body{
+	margin:0;
+	width: 100vw;
+	height: 100vh;
+	font-size: 2rem;
+	display:flex;
+	flex-flow:column nowrap;
+	justify-content: center;
+	align-items: stretch;
+}
+
+view-mgr{
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+}
+doku-main-menu, doku-board{
+	display: flex;
+	background-color: var(--bg);
+	width: 90vw;
+	height: 90vh;
+}
+doku-main-menu{
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
+nav {
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 1rem;
+	justify-content: flex-start;
+	align-items: stretch;
+}
+
+doku-main-menu button{
+	color: #FFF;
+	text-shadow: 1px 1px #000;
+	padding:0 2rem;
+	height: 6rem;
+	border-radius: 1rem;
+	transition: height 100ms;
+	box-shadow: 2px 2px 4px #000;
+}
+
+doku-main-menu button:focus{
+	height: 10rem;
+	text-shadow: 2px 2px #000;
+	box-shadow: 2px 2px 4px #000, 0px 0px 8px rgb(28,128,248);
+	outline: none;
+}
+
+doku-main-menu button:nth-of-type(1){
+	background-color: rgb(28,128,248);
+}
+doku-main-menu button:nth-of-type(2){
+	background-color: rgb(28,248,28);
+}
+doku-main-menu button:nth-of-type(3){
+	background-color: rgb(248,148,28);
+}
+doku-main-menu button:nth-of-type(4){
+	background-color: rgb(248,28,28);
+}
+
+button{
+	appearance: none;
+	background-color: transparent;
+	border:none;
+	font-size: 3rem;
+}
+doku-board{
+	--cell-size: 3.2em;
+	--cell-padding: 10px;
+	position: relative;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: stretch;
+	padding-left: 1rem;
+}
+
+doku-board.completed doku-cell {
+	background-color: #0F0;
+	
+}
+
+doku-board table{
+	position: relative;
+	border-collapse: collapse;
+	flex-grow: 0;
+	flex-shrink: 0;
+	display:block;
+}
+
+doku-board td{
+	position:relative;
+	display: inline-block;
+	aspect-ratio: 1/1;
+	height: var(--cell-size);
+	width: var(--cell-size);
+
+}
+
+doku-board td:nth-of-type(3), doku-board td:nth-of-type(6){
+	border-right: var(--separator);
+}
+/* Table borders dont collapse right add some color to the other side of the line */
+doku-board td:nth-of-type(4), doku-board td:nth-of-type(7){
+	border-left: var(--separator);
+}
+
+doku-board tr:nth-of-type(3) td, doku-board tr:nth-of-type(6) td{
+	border-bottom: var(--separator);
+}
+/* Table borders dont collapse right add some color to the other side of the line */
+doku-board tr:nth-of-type(4) td, doku-board tr:nth-of-type(7) td{
+	border-top: var(--separator);
+}
+
+doku-cell {
+	display:block;
+	position: relative;
+	top: calc(var(--cell-padding) / 2);
+	left: calc(var(--cell-padding) / 2);
+	width: calc(var(--cell-size) - var(--cell-padding));
+	height: calc(var(--cell-size) - var(--cell-padding));
+	background-color: var(--bg-1);
+	border-radius: 0.5rem;
+}
+
+doku-cell.locked input{
+	font-weight: bolder;
+	font-size: 1.75em;
+	color: var(--fg-1);
+}
+
+doku-cell.has-error input{
+	color:#F00;
+}
+
+doku-cell input, doku-cell div{
+	position: absolute;
+	top:0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+doku-cell input{
+	appearance: none;
+	border:none;
+	background-color: transparent;
+	outline: none;
+	text-align: center;
+	font-size: 1.5em;
+	caret-color: transparent;
+}
+
+doku-board aside {
+	flex-grow:1;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: flex-start;
+	padding: 1em;
+}
+
+b{
+	font-weight: bolder;
+	font-size: 1.25em;
+}
+doku-board aside ul {
+	list-style: none;
+	
+}
+doku-board aside ul li{
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 1em;
+}
+
+doku-cell div{
+	display:grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	justify-items: center;
+	align-items: center;
+}
+
+.hide{
+	display:none !important;
+}
+
+doku-cell span{
+	font-size: 0.75em;
+}
+doku-cell span.hidden{
+	visibility: hidden;
+}
+doku-cell:focus-within{
+	background: rgba(168,248,168, 0.25);
+}
+
+doku-cell input:not(:valid) + div{
+	display: none;
+}
+
+doku-cell.same-value{
+	background-color:rgb(220,220,255);
+}
+
+doku-cell.relative{
+	background-color: rgba(100,220,255, 0.75);
+}
+svg.loading-symbol path{
+	fill:none;
+	stroke: currentColor;
+	stroke-width: 0.25em;
+}
+
+svg.loading-symbol{
+	animation: spin 1s linear infinite;
+}
+
+.overlay {
+	position: absolute;
+	backdrop-filter: blur(8px);
+	z-index: 100;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+	
+}
+
+.control-btn{
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+	padding: 0.25em;
+	box-shadow: 2px 2px 4px #000;
+	color:#FFF;
+	display: inline-flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	font-size: 0.75em;
+	width: 1em;
+}
+
+.grey{
+	background-color: #AAA;
+}
+.red{
+	background-color: #F00;
+}
+.green{
+	background-color: #0A0;
+}
+.blue{
+	background-color: #00F;
+}
+.yellow{
+	background-color: #FF0;
+}
+
+@keyframes spin {
+	from{
+		transform: rotate(0deg);
+	}
+	to{
+		transform: rotate(359deg);
+	}
+}
